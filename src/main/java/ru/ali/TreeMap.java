@@ -75,18 +75,18 @@ public class TreeMap {
     static class Solution {
         public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
             HashMap<String, Integer> mapStringNodes = new HashMap<>();
-            HashMap<TreeNode, String> mapNodes = new HashMap<>();
+            HashMap<String, TreeNode> mapNodes = new HashMap<>();
             addToMap(root, mapStringNodes, mapNodes);
             ArrayList<TreeNode> result = new ArrayList<>();
-            for (Map.Entry<TreeNode, String> entry : mapNodes.entrySet()) {
-                if (mapStringNodes.get(entry.getValue()) > 1) {
-                    result.add(entry.getKey());
+            for (Map.Entry<String,TreeNode> entry : mapNodes.entrySet()) {
+                if (mapStringNodes.get(entry.getKey()) > 1) {
+                    result.add(entry.getValue());
                 }
             }
             return result;
         }
 
-        public String addToMap(TreeNode node, HashMap<String, Integer> mapStringNodes, HashMap<TreeNode, String> mapNodes) {
+        public String addToMap(TreeNode node, HashMap<String, Integer> mapStringNodes, HashMap<String, TreeNode> mapNodes) {
             if (node == null) {
                 return "";
             }
@@ -102,7 +102,7 @@ public class TreeMap {
                 mapStringNodes.put(strNode, 1);
             }
 
-            mapNodes.put(node, strNode);
+            mapNodes.put(strNode, node);
             return strNode;
         }
     }
